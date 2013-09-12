@@ -8,7 +8,7 @@ http.createServer(function (req, res) {
       console.log(req.content);
       break;
   };
-}).listen(8080); // listen on tcp port 8080 (all interfaces)
+}).listen(12); // listen on tcp port 8080 (all interfaces)
 
 
 // var GitHubApi = require("github")
