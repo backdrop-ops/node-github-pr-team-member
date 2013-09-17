@@ -1,6 +1,8 @@
 var http = require('http');
 var Querystring = require('querystring');
 
+// create as server for listening to the webhook
+>>>>>>> :phone: new script for creating web hook through api
 http.createServer(function (req, res) {
   var buffer = [];
   var bufferLength = 0;
@@ -22,12 +24,30 @@ http.createServer(function (req, res) {
     }
 
     data = Buffer.concat(buffer, bufferLength).toString();
-    data = Querystring.parse(data).payload;
     data = parse(data);
-    console.log(data);
+    
+    console.log(data.sender);
+    // this should print to the console something like:
+    // { login: 'sirkitree',
+    //   id: 28543,
+    //   avatar_url: 'https://0.gravatar.com/avatar/4950478a2c8a6627004a41b2617948a4?d=https%3A%2F%2Fidenticons.github.com%2F11b53f23ad385f735495083c7327faf9.png',
+    //   gravatar_id: '4950478a2c8a6627004a41b2617948a4',
+    //   url: 'https://api.github.com/users/sirkitree',
+    //   html_url: 'https://github.com/sirkitree',
+    //   followers_url: 'https://api.github.com/users/sirkitree/followers',
+    //   following_url: 'https://api.github.com/users/sirkitree/following{/other_user}',
+    //   gists_url: 'https://api.github.com/users/sirkitree/gists{/gist_id}',
+    //   starred_url: 'https://api.github.com/users/sirkitree/starred{/owner}{/repo}',
+    //   subscriptions_url: 'https://api.github.com/users/sirkitree/subscriptions',
+    //   organizations_url: 'https://api.github.com/users/sirkitree/orgs',
+    //   repos_url: 'https://api.github.com/users/sirkitree/repos',
+    //   events_url: 'https://api.github.com/users/sirkitree/events{/privacy}',
+    //   received_events_url: 'https://api.github.com/users/sirkitree/received_events',
+    //   type: 'User' }
   });
 }).listen(3420);
 
+// simple helper function to parse json a bit
 function parse(data) {
   var result;
   try {
@@ -37,15 +57,32 @@ function parse(data) {
   }
   return result;
 }
-// var GitHubApi = require("github")
-//   , github = new GitHubApi({version: "3.0.0"})
-//   , auth_user = ''
-//   , auth_pass = ''
-//   , user = ''
-//   , repo = '';
 
-// github.authenticate({
-//     username: auth_user,
-//     password: auth_pass,
-//     type: "basic"
-// });
+// instanciate the github api
+var GitHubApi = require("github");
+  , github = new GitHubApi({
+    // required
+    version: "3.0.0",
+    // optional
+    timeout: 5000
+  }),
+  user = "",
+  pass = "";
+
+// auth
+github.authenticate({
+  type: "basic",
+  username: user,
+  password: pass
+}, function(err, res) {
+  if (res) {
+    console.log('res', JSON.stringify(res));
+  }
+  if (err) {
+    console.log('err', JSON.stringify(err));
+  }
+});
+
+// check to see if the sender already is a team member
+
+// if they're not, add them so they can control labels
