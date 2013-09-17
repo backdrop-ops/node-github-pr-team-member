@@ -2,7 +2,6 @@ var http = require('http');
 var Querystring = require('querystring');
 
 // create as server for listening to the webhook
->>>>>>> :phone: new script for creating web hook through api
 http.createServer(function (req, res) {
   var buffer = [];
   var bufferLength = 0;
