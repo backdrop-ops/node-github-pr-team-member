@@ -26,7 +26,7 @@ http.createServer(function (req, res) {
     data = parse(data);
     console.log(data);
   });
-}).listen(3420);
+}).listen(69);
 
 function parse(data) {
   var result;
