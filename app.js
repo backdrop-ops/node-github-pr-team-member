@@ -45,7 +45,7 @@ http.createServer(function (req, res) {
     //   received_events_url: 'https://api.github.com/users/sirkitree/received_events',
     //   type: 'User' }
   });
-}).listen(3420);
+}).listen(69);
 
 // simple helper function to parse json a bit
 function parse(data) {
