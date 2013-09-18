@@ -58,19 +58,40 @@ github.authenticate({
   type: "basic",
   username: user,
   password: pass
-}, rlog(err, res));
+}, function rlog(err, res) {
+  if (res) {
+    console.log('res', JSON.stringify(res));
+  }
+  if (err) {
+    console.log('err', JSON.stringify(err));
+  }
+});
 
 // check to see if the sender already is a team member
 github.getTeamMember({
   id: teamid,
   user: data.sender.login
-}, rlog(err, res));
+}, function rlog(err, res) {
+  if (res) {
+    console.log('res', JSON.stringify(res));
+  }
+  if (err) {
+    console.log('err', JSON.stringify(err));
+  }
+});
 
 // if they're not, add them so they can control labels
 github.addTeamMember({
   id: teamid,
   user: data.sender.login
-}, rlog(err, res));
+}, function rlog(err, res) {
+  if (res) {
+    console.log('res', JSON.stringify(res));
+  }
+  if (err) {
+    console.log('err', JSON.stringify(err));
+  }
+});
 
 
 /**
@@ -86,14 +107,4 @@ function parse(data) {
     result = false;
   }
   return result;
-}
-
-// print error or result
-function rlog(err, res) {
-  if (res) {
-    console.log('res', JSON.stringify(res));
-  }
-  if (err) {
-    console.log('err', JSON.stringify(err));
-  }
 }
