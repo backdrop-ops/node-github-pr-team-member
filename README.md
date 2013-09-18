@@ -15,7 +15,7 @@ You have a project on GitHub and you want people to be able to help maintain the
 
 ### Create the Service Hook
 1. Edit createHook.js and fill out the following vars:
- * `user` and `pass` of a user who has access to the repository which you'd like to receive pull requests (suggest creating a user specifically for this script so you're not inputting your own creds on the server
+ * `user` and `pass` of a user who has access to the repository which you'd like to receive pull requests (suggest creating a user specifically for this script so you're not inputting your own creds on the server)
  * `org` is the name of the organization which houses your repos
  * `serverAddress` is the server you'd like to recieve the pull request notices
 1. Run `node createHook.js`. 
