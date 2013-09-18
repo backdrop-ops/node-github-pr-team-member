@@ -1,14 +1,9 @@
 var GitHubApi = require("github")
-  , github = new GitHubApi({
-    // required
-    version: "3.0.0",
-    // optional
-    timeout: 5000
-  }),
-  user = "", 
-  pass = "",
-  org = "", // i.e. backdrop
-  repo = ""; // i.e. backdrop (since we want to register the hook to detect PRs from there)
+  , github = new GitHubApi({version: "3.0.0"})
+  , user = ""
+  , pass = ""
+  , org = "" // i.e. backdrop
+  , repo = ""; // i.e. backdrop (since we want to register the hook to detect PRs from there)
 
 // Auth
 github.authenticate({
