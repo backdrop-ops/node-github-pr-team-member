@@ -3,7 +3,8 @@ var GitHubApi = require("github")
   , user = ""
   , pass = ""
   , org = "" // i.e. backdrop
-  , repo = ""; // i.e. backdrop (since we want to register the hook to detect PRs from there)
+  , repo = "", // i.e. backdrop (since we want to register the hook to detect PRs from there)
+  // , serverAddress = ""; location of the server to detect pull requests
 
 // Auth
 github.authenticate({
@@ -25,7 +26,7 @@ github.repos.createHook({
   repo: repo,
   name: "web",
   config: {
-    'url': 'http://23.92.20.128:3420', // this is the integration server url and port used in app.js
+    'url': serverAddress, // this is the integration server url and port used in app.js
     'content_type': 'json' // this makes so we don't have to parse the 'payload' param and just get straight up json
   },
   events: ['pull_request'],
