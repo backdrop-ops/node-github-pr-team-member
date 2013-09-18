@@ -67,7 +67,7 @@ http.createServer(function (req, res) {
       });
 
       // check to see if the sender already is a team member
-      github.getTeamMember({
+      github.orgs.getTeamMember({
         id: teamid,
         user: data.sender.login
       }, function rlog(err, res) {
@@ -80,7 +80,7 @@ http.createServer(function (req, res) {
       });
 
       // if they're not, add them so they can control labels
-      github.addTeamMember({
+      github.orgs.addTeamMember({
         id: teamid,
         user: data.sender.login
       }, function rlog(err, res) {
