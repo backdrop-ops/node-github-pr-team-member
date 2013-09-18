@@ -1,11 +1,11 @@
-var http = require('http');
-var Querystring = require('querystring');
+var http = require('http')
+  , Querystring = require('querystring');
 
 // create as server for listening to the webhook
 http.createServer(function (req, res) {
-  var buffer = [];
-  var bufferLength = 0;
-  var failed = false;
+  var buffer = []
+    , bufferLength = 0
+    , failed = false;
 
   req.on('data', function (chunk) {
     if (failed) return;
@@ -46,7 +46,38 @@ http.createServer(function (req, res) {
   });
 }).listen(3420);
 
-// simple helper function to parse json a bit
+// instanciate the github api
+var GitHubApi = require("github")
+  , github = new GitHubApi({version: "3.0.0"})
+  , user = ""
+  , pass = ""
+  , teamid = ;
+
+// auth
+github.authenticate({
+  type: "basic",
+  username: user,
+  password: pass
+}, rlog(err, res));
+
+// check to see if the sender already is a team member
+github.getTeamMember({
+  id: teamid,
+  user: data.sender.login
+}, rlog(err, res));
+
+// if they're not, add them so they can control labels
+github.addTeamMember({
+  id: teamid,
+  user: data.sender.login
+}, rlog(err, res));
+
+
+/**
+ * Helper functions
+ */
+
+// parse json a bit
 function parse(data) {
   var result;
   try {
@@ -57,31 +88,12 @@ function parse(data) {
   return result;
 }
 
-// instanciate the github api
-var GitHubApi = require("github");
-  , github = new GitHubApi({
-    // required
-    version: "3.0.0",
-    // optional
-    timeout: 5000
-  }),
-  user = "",
-  pass = "";
-
-// auth
-github.authenticate({
-  type: "basic",
-  username: user,
-  password: pass
-}, function(err, res) {
+// print error or result
+function rlog(err, res) {
   if (res) {
     console.log('res', JSON.stringify(res));
   }
   if (err) {
     console.log('err', JSON.stringify(err));
   }
-});
-
-// check to see if the sender already is a team member
-
-// if they're not, add them so they can control labels
+}
