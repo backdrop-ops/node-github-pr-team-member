@@ -57,22 +57,21 @@ http.createServer(function (req, res) {
           console.log('res', JSON.stringify(res));
         }
         if (err) {
-          console.log('err', JSON.stringify(err));
+          // if we have an err then we know the user is not added to the team, so add them
+          github.orgs.addTeamMember({
+            id: teamid,
+            user: data.sender.login
+          }, function rlog(err, res) {
+            if (res) {
+              console.log('res', JSON.stringify(res));
+            }
+            if (err) {
+              console.log('err', JSON.stringify(err));
+            }
+          });
         }
       });
-
-      // if they're not, add them so they can control labels
-      github.orgs.addTeamMember({
-        id: teamid,
-        user: data.sender.login
-      }, function rlog(err, res) {
-        if (res) {
-          console.log('res', JSON.stringify(res));
-        }
-        if (err) {
-          console.log('err', JSON.stringify(err));
-        }
-      });
+            
     }
     
   });
