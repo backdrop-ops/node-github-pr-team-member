@@ -44,52 +44,55 @@ http.createServer(function (req, res) {
     //   received_events_url: 'https://api.github.com/users/sirkitree/received_events',
     //   type: 'User' }    
 
-    // instanciate the github api
-    var GitHubApi = require("github")
-      , github = new GitHubApi({version: "3.0.0"})
-      , user = ""
-      , pass = ""
-      , teamid = ;
+    if (data.sender.login) {
+      // instanciate the github api
+      var GitHubApi = require("github")
+        , github = new GitHubApi({version: "3.0.0"})
+        , user = ""
+        , pass = ""
+        , teamid = ;
 
-    // auth
-    github.authenticate({
-      type: "basic",
-      username: user,
-      password: pass
-    }, function rlog(err, res) {
-      if (res) {
-        console.log('res', JSON.stringify(res));
-      }
-      if (err) {
-        console.log('err', JSON.stringify(err));
-      }
-    });
+      // auth
+      github.authenticate({
+        type: "basic",
+        username: user,
+        password: pass
+      }, function rlog(err, res) {
+        if (res) {
+          console.log('res', JSON.stringify(res));
+        }
+        if (err) {
+          console.log('err', JSON.stringify(err));
+        }
+      });
 
-    // check to see if the sender already is a team member
-    github.getTeamMember({
-      id: teamid,
-      user: data.sender.login
-    }, function rlog(err, res) {
-      if (res) {
-        console.log('res', JSON.stringify(res));
-      }
-      if (err) {
-        console.log('err', JSON.stringify(err));
-      }
-    });
+      // check to see if the sender already is a team member
+      github.getTeamMember({
+        id: teamid,
+        user: data.sender.login
+      }, function rlog(err, res) {
+        if (res) {
+          console.log('res', JSON.stringify(res));
+        }
+        if (err) {
+          console.log('err', JSON.stringify(err));
+        }
+      });
 
-    // if they're not, add them so they can control labels
-    github.addTeamMember({
-      id: teamid,
-      user: data.sender.login
-    }, function rlog(err, res) {
-      if (res) {
-        console.log('res', JSON.stringify(res));
-      }
-      if (err) {
-        console.log('err', JSON.stringify(err));
-      }
-    });
+      // if they're not, add them so they can control labels
+      github.addTeamMember({
+        id: teamid,
+        user: data.sender.login
+      }, function rlog(err, res) {
+        if (res) {
+          console.log('res', JSON.stringify(res));
+        }
+        if (err) {
+          console.log('err', JSON.stringify(err));
+        }
+      });
+    }
+    
   });
 }).listen(3420);
 
